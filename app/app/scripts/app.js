@@ -16,7 +16,8 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'infinite-scroll'
   ])
   .config(function ($routeProvider) {
     $routeProvider

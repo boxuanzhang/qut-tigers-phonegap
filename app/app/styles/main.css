@@ -9,75 +9,57 @@ body {
   padding: 0;
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-  padding-left: 15px;
-  padding-right: 15px;
+.main {
+  padding: 0;
 }
 
-/* Custom page header */
-.header {
-  border-bottom: 1px solid #e5e5e5;
-  margin-bottom: 10px;
-}
-/* Make the masthead heading the same height as the navigation */
-.header h3 {
-  margin-top: 0;
+.navbar {
   margin-bottom: 0;
-  line-height: 40px;
-  padding-bottom: 19px;
 }
 
-/* Custom page footer */
-.footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
+.navbar-header {
+  padding-top: 16px;
 }
 
-.container-narrow > hr {
-  margin: 30px 0;
+.feeds {
+  background-color: #f0f0f0;
 }
 
-/* Main marketing message and sign up button */
-.jumbotron {
-  text-align: center;
-  border-bottom: 1px solid #e5e5e5;
-}
-.jumbotron .btn {
-  font-size: 21px;
-  padding: 14px 24px;
+.feeds-status {
+  width: 100%;
+  margin-bottom: 4px;
+  position: relative;
+  background-color: #fafaff;
 }
 
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
-}
-.marketing p + h4 {
-  margin-top: 28px;
+.feeds-status .picture {
+  width: 100%;
+  height: 200px;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-position: center;
 }
 
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
+.feeds-status .detail {
+  padding: 14px 20px 14px 20px;
+}
 
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
+.feeds-status .title {
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 100%;
+}
+
+.feeds-status .info {
+  margin-top: 14px;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.feeds-status .time {
+  color: #888888;
+}
+
+.feeds-status .sender {
+  color: #003fa7;
 }
