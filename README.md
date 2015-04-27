@@ -33,7 +33,7 @@ $ sudo npm install -g generator-angular
 ### Install Grunt Build System
 
 ```
-$ sudo npm install -g grunt
+$ sudo npm install -g grunt-cli
 ```
 
 ### Install npm dependencies
