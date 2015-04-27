@@ -30,6 +30,26 @@ $ sudo npm install -g yo
 $ sudo npm install -g generator-angular
 ```
 
+### Install Grunt Build System
+
+```
+$ sudo npm install -g grunt
+```
+
+### Install npm dependencies
+
+```
+$ cd $PROJECT_ROOT/app
+$ sudo npm install --development
+```
+
+### Prepare bower packages
+
+```
+$ cd $PROJECT_ROOT/app
+$ sudo bower install
+```
+
 ## Build
 
 ### Step 1: Build Web App
