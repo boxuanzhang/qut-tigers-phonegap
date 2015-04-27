@@ -36,6 +36,12 @@ $ sudo npm install -g generator-angular
 $ sudo npm install -g grunt-cli
 ```
 
+### Install Bower Manager
+
+```
+$ sudo npm install -g bower
+```
+
 ### Install npm dependencies
 
 ```
