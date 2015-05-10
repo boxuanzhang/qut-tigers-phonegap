@@ -8,34 +8,21 @@
  * Factory in the qutTigersApp.
  */
 angular.module('qutTigersApp')
-  .factory('BaseService', function () {
-    function BaseService() {}
+  .factory('BaseService', function ($window, $location, $http, settings) {
+    function BaseService() {
+    }
 
-    BaseService.prototype._transform = function (data) {
-      return $.param(data);
-    };
-
-    BaseService.prototype._responseHandler = function (data, success, error) {
-      var ret;
-      if (typeof data.ret == 'undefined')
-        ret = -1;
-      else
-        ret = data.ret;
-
-      switch (ret) {
-        case 0:
-          success(data);
-          break;
-        case 2002:
-          $window.sessionStorage.clear();
-          $location.path('/');
-          break;
-        case 2006:
-          alert('操作过于频繁');
-          break;
-        default:
-          console.log('Error ret: ' + ret);
-          error(ret);
+    BaseService.prototype._responseHandler = function (data, status, success, error) {
+      if (status >= 200 && status <= 299) {
+        success(data, status);
+      } else if (status == 401) {
+        $window.sessionStorage.clear();
+        $location.path('/login');
+      } else if (status == 403) {
+        alert('Permission denied!');  // This should not happen
+        error(status);
+      } else {
+        error(status);
       }
     };
 
@@ -48,64 +35,30 @@ angular.module('qutTigersApp')
       $http({
         method: method.toUpperCase(),
         url: this.getUrl(entry),
-        params: {
-          '_t': Date.now().toString()
-        },
         data: data,
-        
+        cache: false
+      }).success(function (data, status, headers, config) {
+        console.log(method.toUpperCase() + ' Response - status: ' + status + ' - data: ' + JSON.stringify(data));
+        self._responseHandler(data, status, success, error);
+      }).error(function (data, status, headers, config) {
+        console.log(method.toUpperCase() + ' Error - status: ' + status + ' - data: ' + JSON.stringify(data));
+        self._responseHandler(data, status, success, error);
       });
-
-      ($http[method.toLowerCase()])(
-        this.getUrl(entry),
-        '',
-        {
-          params: data
-        })
-        .success(function (data, status, headers, config) {
-          console.log('POST Response - status: ' + status + ' - data: ' + JSON.stringify(data));
-          self._responseHandler(data, success, error);
-        })
-        .error(function (data, status, headers, config) {
-          console.log('POST Network error - status: ' + status + ' - data: ' + JSON.stringify(data));
-          error(-1);
-        });
     };
 
-    BaseService.prototype.httpPost = function (entry, data, success, error) {
-      var self = this;
-      var timestamp = Date.now().toString();
-      data[timestamp] = '';
-      $http.post(
-        this.getUrl(entry),
-        '',
-        {
-          params: data
-        })
-        .success(function (data, status, headers, config) {
-          console.log('POST Response - status: ' + status + ' - data: ' + JSON.stringify(data));
-          self._responseHandler(data, success, error);
-        })
-        .error(function (data, status, headers, config) {
-          console.log('POST Network error - status: ' + status + ' - data: ' + JSON.stringify(data));
-          error(-1);
-        });
+    BaseService.prototype.post = function (entry, data, success, error) {
+      this.http('post', entry, data, success, error);
     };
 
-    BaseService.prototype.httpGet = function (entry, data, success, error) {
-      var self = this;
-      var timestamp = Date.now().toString();
-      data[timestamp] = '';
-      $http.get(this.getUrl(entry),
-        {
-          params: data
-        })
-        .success(function (data, status, headers, config) {
-          console.log('GET Response - status: ' + status + ' - data: ' + JSON.stringify(data));
-          self._responseHandler(data, success, error);
-        })
-        .error(function (data, status, headers, config) {
-          console.log('GET Network error - status: ' + status + ' - data: ' + JSON.stringify(data));
-          error(-1);
-        });
+    BaseService.prototype.get = function (entry, data, success, error) {
+      this.http('get', entry, data, success, error);
+    };
+
+    BaseService.prototype.put = function (entry, data, success, error) {
+      this.http('put', entry, data, success, error);
+    };
+
+    BaseService.prototype.delete = function (entry, data, success, error) {
+      this.http('delete', entry, data, success, error);
     };
   });
