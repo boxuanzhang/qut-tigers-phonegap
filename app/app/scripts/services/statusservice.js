@@ -38,7 +38,7 @@ angular.module('qutTigersApp')
         '/status/',
         paging._toData(),
         function (data, status) {
-          success(data.statuses);
+          success(data.statuses, new PagingParams(data._paging.after));
         },
         function (data, status) {
           error();
