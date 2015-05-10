@@ -26,7 +26,8 @@ angular.module('qutTigersApp')
             accessToken: data['access_token'],
             expire: data['expire'],
             refreshToken: data['refresh_token'],
-            user: data['user']
+            user: data['user'],
+            permissions: data['permissions']
           };
           $location.path('/');
         },

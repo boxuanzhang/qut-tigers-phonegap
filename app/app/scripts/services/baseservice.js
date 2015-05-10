@@ -20,9 +20,9 @@ angular.module('qutTigersApp')
         $location.path('/login');
       } else if (status == 403) {
         alert('Permission denied!');  // This should not happen
-        error(status);
+        error(data, status);
       } else {
-        error(status);
+        error(data, status);
       }
     };
 
@@ -61,4 +61,6 @@ angular.module('qutTigersApp')
     BaseService.prototype.delete = function (entry, data, success, error) {
       this.http('delete', entry, data, success, error);
     };
+
+    return new BaseService();
   });

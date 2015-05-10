@@ -1,9 +1,9 @@
 <div>
     <div class="feeds" infinite-scroll='loadMore()' infinite-scroll-distance='2'>
-      <div class="feeds-status" ng-repeat='image in images'>
-        <div class="picture" style="background-image: url(http://placehold.it/225x250&text={{image}});"></div>
+      <div class="feeds-status" ng-repeat='status in statuses'>
+        <div class="picture" style="background-image: url(http://placehold.it/225x250&text=1);"></div>
         <div class="detail">
-          <div class="title">Title {{ image }}, hello world! Status title here!</div>
+          <div class="title">{{ status.title }}</div>
           <div class="info"><span class="time">1 hour ago</span> · <span class="sender">Microdog</span></div>
         </div>
       </div>
