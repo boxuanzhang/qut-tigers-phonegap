@@ -52,6 +52,10 @@
     <div ng-view=""></div>
     </div>
 
+    <!-- Unmanaged javascript -->
+    <script src="libs/cryptojslib/components/core-min.js"></script>
+    <script src="libs/cryptojslib/components/sha256-min.js"></script>
+
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -73,6 +77,9 @@
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/services/baseservice.js"></script>
+        <script src="scripts/services/authinterceptor.js"></script>
+        <script src="scripts/services/authservice.js"></script>
+        <script src="scripts/services/settings.js"></script>
         <!-- endbuild -->
 </body>
 </html>
