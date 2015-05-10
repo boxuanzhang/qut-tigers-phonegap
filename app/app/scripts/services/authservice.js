@@ -42,8 +42,16 @@ angular.module('qutTigersApp')
       $location.path('/');
     };
 
+    AuthService.prototype.authInfo = function () {
+      return $window.localStorage.auth;
+    }
+
     AuthService.prototype.isLoggedIn = function () {
       return Boolean($window.localStorage.auth);
+    };
+
+    AuthService.prototype.hasPermission = function (permission) {
+      return this.isLoggedIn() && this.authInfo().permissions.indexOf(permission) != -1;
     };
 
     return new AuthService();

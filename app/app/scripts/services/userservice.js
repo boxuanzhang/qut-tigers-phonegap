@@ -16,16 +16,23 @@ angular.module('qutTigersApp')
     UserService.prototype.getUserPromise = function (userId) {
       var deffered = $q.defer();
 
-      BaseService.get(
-        '/user/' + userId,
-        {},
-        function (data, status) {
-          deffered.resolve(data.user);
-        },
-        function (data, status) {
-          deffered.reject();
-        }
-      );
+      var cacheKey = 'user_' + userId;
+      var cached = lscache.get(cacheKey);
+      if (cached) {
+        deffered.resolve(cached);
+      } else {
+        BaseService.get(
+          '/user/' + userId,
+          {},
+          function (data, status) {
+            lscache.set(cacheKey, data.user, 30);
+            deffered.resolve(data.user);
+          },
+          function (data, status) {
+            deffered.reject();
+          }
+        );
+      }
 
       return deffered.promise;
     };

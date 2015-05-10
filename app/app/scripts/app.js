@@ -29,6 +29,18 @@ angular
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
       })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
+      })
+      .when('/profile/:userId?', {
+        templateUrl: 'views/profile.html',
+        controller: 'ProfileCtrl'
+      })
+      .when('/status/:statusId', {
+        templateUrl: 'views/status.html',
+        controller: 'StatusCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

@@ -13,32 +13,26 @@ angular.module('qutTigersApp')
 
     }
 
-    PhotoService.prototype.getPhoto = function (photoId, success, error) {
-      BaseService.get(
-        '/photo/' + photoId,
-        {},
-        function (data, status) {
-          success(data.photo);
-        },
-        function (data, status) {
-          error();
-        }
-      );
-    };
-
     PhotoService.prototype.getPhotoPromise = function (photoId) {
       var deffered = $q.defer();
 
-      BaseService.get(
-        '/photo/' + photoId,
-        {},
-        function (data, status) {
-          deffered.resolve(data.photo);
-        },
-        function (data, status) {
-          deffered.reject();
-        }
-      );
+      var cacheKey = 'photo_' + photoId;
+      var cached = lscache.get(cacheKey);
+      if (cached) {
+        deffered.resolve(cached);
+      } else {
+        BaseService.get(
+          '/photo/' + photoId,
+          {},
+          function (data, status) {
+            lscache.set(cacheKey, data.photo, 30);
+            deffered.resolve(data.photo);
+          },
+          function (data, status) {
+            deffered.reject();
+          }
+        );
+      }
 
       return deffered.promise;
     };

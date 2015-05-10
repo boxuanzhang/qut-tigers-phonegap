@@ -8,7 +8,7 @@
  * Controller of the qutTigersApp
  */
 angular.module('qutTigersApp')
-  .controller('MainCtrl', function ($scope, StatusService, PhotoService, UserService) {
+  .controller('MainCtrl', function ($scope, $location, StatusService, PhotoService, UserService) {
     $scope.statuses = [];
     $scope.photos = {};
     $scope.users = {};
@@ -58,4 +58,11 @@ angular.module('qutTigersApp')
       return moment.unix(status.timestamp).fromNow();
     };
 
+    $scope.goToDetail = function (status) {
+      $location.path('/status/' + status.id);
+    };
+
+    $scope.goToProfile = function (status) {
+      $location.path('/profile/' + status.user);
+    };
   });

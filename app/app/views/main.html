@@ -1,10 +1,14 @@
 <div>
     <div class="feeds" infinite-scroll='loadMore()' infinite-scroll-distance='2'>
-      <div class="feeds-status" ng-repeat='status in statuses'>
+      <div class="feeds-status" ng-repeat='status in statuses' ng-click="goToDetail(status)">
         <div class="picture" style="{{ getStatusCover(status) }};"></div>
         <div class="detail">
           <div class="title">{{ status.title }}</div>
-          <div class="info"><span class="time">{{ getStatusTime(status) }}</span> · <span class="sender">{{ getStatusUser(status) }}</span></div>
+          <div class="info">
+            <span class="time">{{ getStatusTime(status) }}</span>
+            ·
+            <span ng-click="goToProfile(status)" stop-event="click" class="sender">{{ getStatusUser(status) }}</span>
+          </div>
         </div>
       </div>
     </div>
