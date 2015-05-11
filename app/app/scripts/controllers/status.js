@@ -8,7 +8,7 @@
  * Controller of the qutTigersApp
  */
 angular.module('qutTigersApp')
-  .controller('StatusCtrl', function ($scope, $routeParams, $location, StatusService, PhotoService, UserService) {
+  .controller('StatusCtrl', function ($scope, $routeParams, $location, StatusService, PhotoService, UserService, AuthService) {
     $scope.statusId = $routeParams.statusId;
 
     StatusService.getStatusPromise($scope.statusId)
@@ -56,5 +56,18 @@ angular.module('qutTigersApp')
 
     $scope.goToProfile = function (status) {
       $location.path('/profile/' + status.user);
+    };
+
+    $scope.canDelete = function (status) {
+      return status.user == AuthService.currentUser().id;
+    };
+
+    $scope.deletePost = function (status) {
+      StatusService.getDeleteStatusPromise(status.id)
+        .then(
+        function () {
+          $location.path('/');
+        }
+      )
     };
   });

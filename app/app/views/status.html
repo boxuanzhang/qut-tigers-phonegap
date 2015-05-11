@@ -20,4 +20,7 @@
     <span class="glyphicon glyphicon-leaf"></span>
   </div>
 
+  <div class="detail" ng-if="canDelete(status)">
+    <button class="btn btn-lg btn-danger btn-block" ng-click="deletePost(status)">Delete Post</button>
+  </div>
 </div>

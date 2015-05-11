@@ -95,5 +95,22 @@ angular.module('qutTigersApp')
       return deffered.promise;
     };
 
+    StatusService.prototype.getDeleteStatusPromise = function (statusId) {
+      var deffered = $q.defer();
+
+      BaseService.delete(
+        '/status/' + statusId,
+        {},
+        function (data, status) {
+          deffered.resolve();
+        },
+        function (data, status) {
+          deffered.reject();
+        }
+      );
+
+      return deffered.promise;
+    };
+
     return new StatusService();
   });
