@@ -30,16 +30,25 @@ body {
   padding-top: 16px;
 }
 
-.main {
+.main-view {
   height: 100%;
   position: relative;
 }
 
-.main .post {
+.main-view .post {
   font-size: 32px;
   position: fixed;
   bottom: 20px;
   right: 20px;
+  opacity: 0.85;
+}
+
+.main-view .post span {
+  background-color: rgba(238, 238, 238, 0.4);
+  padding: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
 }
 
 .feeds {
