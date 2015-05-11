@@ -43,6 +43,9 @@
               <li ng-class="{'active': isActive('/')}">
                 <a href="#/" data-toggle="collapse" data-target="#js-navbar-collapse">Feeds</a>
               </li>
+              <li ng-class="{'active': isActive('/tweets')}">
+                <a ng-href="#/tweets" data-toggle="collapse" data-target="#js-navbar-collapse" target="_top">Tweets</a>
+              </li>
               <li ng-class="{'active': isActive('/about')}">
                 <a ng-href="#/about" data-toggle="collapse" data-target="#js-navbar-collapse">About</a>
               </li>
@@ -107,6 +110,8 @@
         <script src="scripts/controllers/post.js"></script>
         <script src="scripts/directives/filemodel.js"></script>
         <script src="scripts/directives/fileonchange.js"></script>
+        <script src="scripts/controllers/tweets.js"></script>
+        <script src="scripts/directives/tweetstimeline.js"></script>
         <!-- endbuild -->
 </body>
 </html>

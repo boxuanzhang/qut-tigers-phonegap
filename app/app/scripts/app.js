@@ -47,6 +47,10 @@ angular
         templateUrl: 'views/post.html',
         controller: 'PostCtrl'
       })
+      .when('/tweets', {
+        templateUrl: 'views/tweets.html',
+        controller: 'TweetsCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
