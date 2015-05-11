@@ -1,0 +1,29 @@
+<div class="feeds-status post-view">
+  <div class="picture text-center" style="{{ getStatusCover(status) }};">
+    <div ng-if="!photo">
+      <div class="btn btn-lg btn-default upload-btn" ngf-select ngf-change="uploadPhoto($files)">Upload Image</div>
+    </div>
+  </div>
+
+  <form ng-submit="postStatus()">
+
+  <div class="detail">
+    <div class="title">
+      <textarea title="" placeholder="Title" required="" ng-model="title" rows="1" msd-elastic></textarea>
+    </div>
+  </div>
+
+  <div class="detail">
+    <div class="subtitle">
+      <textarea title="" placeholder="Subtitle" required="" ng-model="subtitle" rows="2" msd-elastic></textarea>
+    </div>
+
+    <p class="content">
+      <textarea title="" placeholder="Content" required="" ng-model="content" rows="3" msd-elastic></textarea>
+    </p>
+
+    <button class="btn btn-lg btn-default btn-block" type="submit">Post</button>
+  </div>
+
+  </form>
+</div>

@@ -1,1 +1,9 @@
-<p>This is the profile view for {{ userId }}</p>
+<div ng-if="user" class="profile">
+  <p class="name">{{ user.name }}</p>
+  <p class="lead">Name</p>
+  <hr>
+  <p class="description">{{ user.description }}</p>
+  <p class="lead">Description</p>
+
+  <button ng-if="isSelf()" ng-click="logout()" class="btn btn-danger btn-block btn-lg">Logout</button>
+</div>

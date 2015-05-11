@@ -17,7 +17,9 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'infinite-scroll'
+    'infinite-scroll',
+    'monospaced.elastic',
+    'ngFileUpload'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -40,6 +42,10 @@ angular
       .when('/status/:statusId', {
         templateUrl: 'views/status.html',
         controller: 'StatusCtrl'
+      })
+      .when('/post', {
+        templateUrl: 'views/post.html',
+        controller: 'PostCtrl'
       })
       .otherwise({
         redirectTo: '/'

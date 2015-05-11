@@ -12,8 +12,8 @@ angular.module('qutTigersApp')
     return {
       request: function (config) {
         config.headers = config.headers || {};
-        if ($window.sessionStorage.auth) {
-          config.headers.Authorization = 'Bearer ' + $window.sessionStorage.auth.accessToken;
+        if ($window.localStorage.accessToken) {
+          config.headers.Authorization = 'Bearer ' + $window.localStorage.accessToken;
         }
         return config;
       },

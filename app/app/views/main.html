@@ -1,4 +1,4 @@
-<div>
+<div class="main">
     <div class="feeds" infinite-scroll='loadMore()' infinite-scroll-distance='2'>
       <div class="feeds-status" ng-repeat='status in statuses' ng-click="goToDetail(status)">
         <div class="picture" style="{{ getStatusCover(status) }};"></div>
@@ -12,4 +12,6 @@
         </div>
       </div>
     </div>
+
+  <div ng-if="canPost()" ng-click="goToPost()" class="post"><span class="glyphicon glyphicon-edit"></span></div>
 </div>

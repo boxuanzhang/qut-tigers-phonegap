@@ -13,22 +13,33 @@ angular.module('qutTigersApp')
 
     }
 
+    AuthService.prototype._setAuth = function (auth) {
+      $window.localStorage.auth = JSON.stringify(auth);
+      $window.localStorage.accessToken = auth.accessToken;
+    };
+
+    AuthService.prototype._getAuth = function () {
+      return JSON.parse($window.localStorage.auth);
+    };
+
     AuthService.prototype.login = function (username, password) {
+      var self = this;
       password = CryptoJS.SHA256(password).toString();
-      return BaseService.post(
+      BaseService.get(
         '/auth/',
         {
           username: username,
           password: password
         },
         function (data) {
-          $window.localStorage.auth = {
+          var auth = {
             accessToken: data['access_token'],
             expire: data['expire'],
             refreshToken: data['refresh_token'],
             user: data['user'],
             permissions: data['permissions']
           };
+          self._setAuth(auth);
           $location.path('/');
         },
         function (error_code) {
@@ -43,8 +54,12 @@ angular.module('qutTigersApp')
     };
 
     AuthService.prototype.authInfo = function () {
-      return $window.localStorage.auth;
-    }
+      return this._getAuth();
+    };
+
+    AuthService.prototype.currentUser = function () {
+      return this.authInfo().user;
+    };
 
     AuthService.prototype.isLoggedIn = function () {
       return Boolean($window.localStorage.auth);

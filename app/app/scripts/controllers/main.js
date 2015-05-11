@@ -8,7 +8,7 @@
  * Controller of the qutTigersApp
  */
 angular.module('qutTigersApp')
-  .controller('MainCtrl', function ($scope, $location, StatusService, PhotoService, UserService) {
+  .controller('MainCtrl', function ($scope, $location, AuthService, StatusService, PhotoService, UserService) {
     $scope.statuses = [];
     $scope.photos = {};
     $scope.users = {};
@@ -64,5 +64,13 @@ angular.module('qutTigersApp')
 
     $scope.goToProfile = function (status) {
       $location.path('/profile/' + status.user);
+    };
+
+    $scope.goToPost = function () {
+      $location.path('/post');
+    };
+
+    $scope.canPost = function () {
+      return AuthService.hasPermission('statuses:post');
     };
   });

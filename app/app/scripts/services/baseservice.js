@@ -30,12 +30,13 @@ angular.module('qutTigersApp')
       return settings.apiRoot + entry;
     };
 
-    BaseService.prototype.http = function (method, entry, data, success, error) {
+    BaseService.prototype.http = function (method, url, data, params, success, error) {
       var self = this;
       $http({
         method: method.toUpperCase(),
-        url: this.getUrl(entry),
+        url: url,
         data: data,
+        params: params,
         cache: false
       }).success(function (data, status, headers, config) {
         console.log(method.toUpperCase() + ' Response - status: ' + status + ' - data: ' + JSON.stringify(data));
@@ -47,19 +48,19 @@ angular.module('qutTigersApp')
     };
 
     BaseService.prototype.post = function (entry, data, success, error) {
-      this.http('post', entry, data, success, error);
+      this.http('post', this.getUrl(entry), {}, data, success, error);
     };
 
     BaseService.prototype.get = function (entry, data, success, error) {
-      this.http('get', entry, data, success, error);
+      this.http('get', this.getUrl(entry), {}, data, success, error);
     };
 
     BaseService.prototype.put = function (entry, data, success, error) {
-      this.http('put', entry, data, success, error);
+      this.http('put', this.getUrl(entry), {}, data, success, error);
     };
 
     BaseService.prototype.delete = function (entry, data, success, error) {
-      this.http('delete', entry, data, success, error);
+      this.http('delete', this.getUrl(entry), {}, data, success, error);
     };
 
     return new BaseService();

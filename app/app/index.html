@@ -34,10 +34,8 @@
               <span class="icon-bar"></span>
             </button>
 
-            <span class="navbar-brand">
-              <span class="glyphicon glyphicon-menu-left" ng-if="!isActive('/')" ng-click="back()" stop-event="click"></span>
-              QUT Tigers
-            </span>
+            <span class="navbar-brand" ng-if="isActive('/')">QUT Tigers</span>
+            <span class="navbar-brand glyphicon glyphicon-menu-left" ng-if="!isActive('/')" ng-click="back()" stop-event="click"></span>
           </div>
 
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
@@ -60,8 +58,8 @@
       </div>
     </div>
 
-    <div class="container main">
-    <div ng-view=""></div>
+    <div class="container view-container">
+      <div ng-view="" style="height: 100%;"></div>
     </div>
 
     <!-- Unmanaged javascript -->
@@ -84,6 +82,9 @@
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/lscache/lscache.min.js"></script>
     <script src="bower_components/lscache/lscache.js"></script>
+    <script src="bower_components/angular-elastic/elastic.js"></script>
+    <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
+    <script src="bower_components/ng-file-upload-shim/ng-file-upload-shim.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -103,6 +104,9 @@
         <script src="scripts/controllers/profile.js"></script>
         <script src="scripts/controllers/status.js"></script>
         <script src="scripts/directives/stopevent.js"></script>
+        <script src="scripts/controllers/post.js"></script>
+        <script src="scripts/directives/filemodel.js"></script>
+        <script src="scripts/directives/fileonchange.js"></script>
         <!-- endbuild -->
 </body>
 </html>

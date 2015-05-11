@@ -8,9 +8,9 @@
  * Factory in the qutTigersApp.
  */
 angular.module('qutTigersApp')
-  .factory('StatusService', function (BaseService) {
+  .factory('StatusService', function (BaseService, $q) {
     function PagingParams(after, count) {
-      this.after = after || '';
+      this.after = after || null;
       this.count = count || 20;
     }
 
@@ -19,10 +19,13 @@ angular.module('qutTigersApp')
     };
 
     PagingParams.prototype._toData = function () {
-      return {
-        '_after': this.after,
+      var param = {
         '_per_page': this.count
+      };
+      if (this.after) {
+        param['_after'] = this.after;
       }
+      return param;
     };
 
 
@@ -44,6 +47,52 @@ angular.module('qutTigersApp')
           error();
         }
       );
+    };
+
+    StatusService.prototype.getStatusPromise = function (statusId) {
+      var deffered = $q.defer();
+
+      var cacheKey = 'status_' + statusId;
+      var cache = lscache.get(cacheKey);
+      if (cache) {
+        deffered.resolve(cache);
+      } else {
+        BaseService.get(
+          '/status/' + statusId,
+          {},
+          function (data, status) {
+            lscache.set(cacheKey, data.status, 60);
+            deffered.resolve(data.status);
+          },
+          function (data, status) {
+            deffered.reject();
+          }
+        );
+      }
+
+      return deffered.promise;
+    };
+
+    StatusService.prototype.getPostStatusPromise = function (title, subtitle, content, photoIds) {
+      var deffered = $q.defer();
+
+      BaseService.post(
+        '/status/',
+        {
+          title: title,
+          subtitle: subtitle,
+          content: content,
+          photos: photoIds[0]
+        },
+        function (data, status) {
+          deffered.resolve(data.status);
+        },
+        function (data, status) {
+          deffered.reject();
+        }
+      );
+
+      return deffered.promise;
     };
 
     return new StatusService();
