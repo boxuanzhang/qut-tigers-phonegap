@@ -175,3 +175,7 @@ body {
 .post-view {
   height: 100%;
 }
+
+.users-view {
+  padding: 14px;
+}

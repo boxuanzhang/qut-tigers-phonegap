@@ -55,6 +55,9 @@
               <li ng-if="isLoggedIn()" ng-class="{'active': isActive('/profile')}">
                 <a href="#/profile" data-toggle="collapse" data-target="#js-navbar-collapse">Profile</a>
               </li>
+              <li ng-if="hasPermission(['users:get', 'users:post', 'user:put', 'user:delete'])" ng-class="{'active': isActive('/users')}">
+                <a href="#/users" data-toggle="collapse" data-target="#js-navbar-collapse">Users</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -112,6 +115,8 @@
         <script src="scripts/directives/fileonchange.js"></script>
         <script src="scripts/controllers/tweets.js"></script>
         <script src="scripts/directives/tweetstimeline.js"></script>
+        <script src="scripts/controllers/users.js"></script>
+        <script src="scripts/services/pagingparam.js"></script>
         <!-- endbuild -->
 </body>
 </html>

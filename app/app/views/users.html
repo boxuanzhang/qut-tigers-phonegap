@@ -1,0 +1,18 @@
+<div class="users-view">
+  <table class="table" infinite-scroll='loadMore()' infinite-scroll-distance='2'>
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Name</th>
+        <th>Groups</th>
+      </tr>
+    </thead>
+    <tr ng-repeat="user in users">
+      <td><a href="#/profile/{{ user.id }}">{{ user.username }}</a></td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.groups }}</td>
+    </tr>
+  </table>
+
+  <button class="btn btn-lg btn-default btn-block">Add User</button>
+</div>

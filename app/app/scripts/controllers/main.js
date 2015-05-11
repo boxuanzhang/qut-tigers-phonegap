@@ -8,34 +8,49 @@
  * Controller of the qutTigersApp
  */
 angular.module('qutTigersApp')
-  .controller('MainCtrl', function ($scope, $location, AuthService, StatusService, PhotoService, UserService) {
+  .controller('MainCtrl', function ($scope, $location, $timeout, AuthService, StatusService, PhotoService, UserService) {
     $scope.statuses = [];
     $scope.photos = {};
     $scope.users = {};
     $scope.paging = null;
 
+    var processing = false;
+
     $scope.loadMore = function() {
+      if (processing) {
+        return;
+      }
+      processing = true;
+
       StatusService.getList($scope.paging, function (statuses, paging) {
-        $scope.statuses = statuses;
+        if (!$scope.paging || (paging.after != $scope.paging.after)) {
+          console.log('Concat: ' + JSON.stringify(statuses));
+
+          $scope.statuses = $scope.statuses.concat(statuses);
+
+          for (var i = 0, j = statuses.length; i != j; ++i) {
+            var status = statuses[i];
+            PhotoService.getPhotoPromise(status.photos[0])
+              .then(
+              function (photo) {
+                $scope.photos[photo.id] = photo;
+              }
+            );
+
+            UserService.getUserPromise(status.user)
+              .then(
+              function (user) {
+                $scope.users[user.id] = user;
+              }
+            );
+          }
+        }
         $scope.paging = paging;
 
-        for (var i = 0, j = statuses.length; i != j; ++i) {
-          var status = statuses[i];
-          PhotoService.getPhotoPromise(status.photos[0])
-            .then(
-            function (photo) {
-              $scope.photos[photo.id] = photo;
-            }
-          );
-
-          UserService.getUserPromise(status.user)
-            .then(
-            function (user) {
-              $scope.users[user.id] = user;
-            }
-          );
-        }
-      })
+        processing = false;
+      }, function () {
+        processing = false;
+      });
     };
 
     $scope.getStatusCover = function (status) {

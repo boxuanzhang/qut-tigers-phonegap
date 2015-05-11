@@ -8,7 +8,7 @@
  * Factory in the qutTigersApp.
  */
 angular.module('qutTigersApp')
-  .factory('UserService', function (BaseService, $q) {
+  .factory('UserService', function (BaseService, $q, PagingParam) {
     function UserService() {
 
     }
@@ -33,6 +33,30 @@ angular.module('qutTigersApp')
           }
         );
       }
+
+      return deffered.promise;
+    };
+
+    UserService.prototype.getUsersListPromise = function (paging) {
+      var deffered = $q.defer();
+
+      if (!paging) {
+        paging = new PagingParam();
+      }
+
+      BaseService.get(
+        '/user/',
+        paging._toData(),
+        function (data, status) {
+          deffered.resolve({
+            users: data.users,
+            paging: new PagingParam(data._paging.after)
+          });
+        },
+        function (data, status) {
+          deffered.reject();
+        }
+      );
 
       return deffered.promise;
     };

@@ -8,40 +8,21 @@
  * Factory in the qutTigersApp.
  */
 angular.module('qutTigersApp')
-  .factory('StatusService', function (BaseService, $q) {
-    function PagingParams(after, count) {
-      this.after = after || null;
-      this.count = count || 20;
-    }
-
-    PagingParams.prototype.hasNext = function () {
-      return Boolean(this.after);
-    };
-
-    PagingParams.prototype._toData = function () {
-      var param = {
-        '_per_page': this.count
-      };
-      if (this.after) {
-        param['_after'] = this.after;
-      }
-      return param;
-    };
-
+  .factory('StatusService', function (BaseService, $q, PagingParam) {
 
     function StatusService() {
     }
 
     StatusService.prototype.getList = function (paging, success, error) {
       if (!paging) {
-        paging = new PagingParams();
+        paging = new PagingParam();
       }
 
       BaseService.get(
         '/status/',
         paging._toData(),
         function (data, status) {
-          success(data.statuses, new PagingParams(data._paging.after));
+          success(data.statuses, new PagingParam(data._paging.after));
         },
         function (data, status) {
           error();

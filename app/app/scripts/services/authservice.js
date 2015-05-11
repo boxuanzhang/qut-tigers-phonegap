@@ -66,7 +66,22 @@ angular.module('qutTigersApp')
     };
 
     AuthService.prototype.hasPermission = function (permission) {
-      return this.isLoggedIn() && this.authInfo().permissions.indexOf(permission) != -1;
+      if (!this.isLoggedIn()) {
+        return false;
+      }
+
+      if (!(permission instanceof Array)) {
+        permission = [permission]
+      }
+
+      var userPermissions = this.authInfo().permissions;
+      for (var i = 0, j = permission.length; i != j; ++i) {
+        if (userPermissions.indexOf(permission[i]) != -1) {
+          return true;
+        }
+      }
+
+      return false;
     };
 
     return new AuthService();
