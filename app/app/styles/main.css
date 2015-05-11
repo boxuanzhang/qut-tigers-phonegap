@@ -108,7 +108,7 @@ body {
   outline: 0;
   width: 100%;
   border: none;
-  background: inherit;
+  background: #fafaff;
   resize: none;
 }
 
