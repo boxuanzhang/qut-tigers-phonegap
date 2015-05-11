@@ -53,7 +53,7 @@ $ sudo npm install --development
 
 ```
 $ cd $PROJECT_ROOT/app
-$ sudo bower install
+$ bower install
 ```
 
 ## Build
