@@ -61,5 +61,45 @@ angular.module('qutTigersApp')
       return deffered.promise;
     };
 
+    UserService.prototype.addUserPromise = function (username, name, description, password, groups) {
+      var deffered = $q.defer();
+
+      BaseService.post(
+        '/user/',
+        {
+          username: username,
+          name: name,
+          description: description,
+          password: CryptoJS.SHA256(password).toString(),
+          groups: groups
+        },
+        function (data, status) {
+          deffered.resolve(data.user);
+        },
+        function (data, status) {
+          deffered.reject();
+        }
+      );
+
+      return deffered.promise;
+    };
+
+    UserService.prototype.deleteUserPromise = function (userId) {
+      var deffered = $q.defer();
+
+      BaseService.delete(
+        '/user/' + userId,
+        {},
+        function (data, status) {
+          deffered.resolve();
+        },
+        function (data, status) {
+          deffered.reject();
+        }
+      );
+
+      return deffered.promise;
+    };
+
     return new UserService();
   });

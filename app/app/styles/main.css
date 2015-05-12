@@ -178,4 +178,9 @@ body {
 
 .users-view {
   padding: 14px;
+  font-size: 12px;
+}
+
+.user-add-view {
+  padding: 14px;
 }

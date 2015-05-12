@@ -6,4 +6,6 @@
   <p class="lead">Description</p>
 
   <button ng-if="isSelf()" ng-click="logout()" class="btn btn-danger btn-block btn-lg">Logout</button>
+
+  <button ng-if="user && canDelete()" ng-click="deleteUser()" class="btn btn-danger btn-block btn-lg">Delete User</button>
 </div>

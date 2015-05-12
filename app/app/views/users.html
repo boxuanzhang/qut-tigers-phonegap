@@ -10,9 +10,9 @@
     <tr ng-repeat="user in users">
       <td><a href="#/profile/{{ user.id }}">{{ user.username }}</a></td>
       <td>{{ user.name }}</td>
-      <td>{{ user.groups }}</td>
+      <td><span ng-repeat="groupId in user.groups"><br ng-show="!$first"/>{{ groupName(groupId) }}</span></td>
     </tr>
   </table>
 
-  <button class="btn btn-lg btn-default btn-block">Add User</button>
+  <button class="btn btn-lg btn-default btn-block" ng-click="goToUserAdd()">Add User</button>
 </div>

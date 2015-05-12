@@ -8,9 +8,10 @@
  * Controller of the qutTigersApp
  */
 angular.module('qutTigersApp')
-  .controller('UsersCtrl', function ($scope, UserService) {
+  .controller('UsersCtrl', function ($scope, $location, UserService, GroupService) {
     $scope.users = [];
     $scope.paging = null;
+    $scope.groups = {};
 
     var processing = false;
 
@@ -35,5 +36,23 @@ angular.module('qutTigersApp')
           processing = false;
         }
       );
+    };
+
+    var processingGruops = {};
+
+    $scope.groupName = function (groupId) {
+      if ($scope.groups[groupId]) {
+        return $scope.groups[groupId].name;
+      } else if (!processingGruops[groupId]) {
+        processingGruops[groupId] = true;
+        GroupService.getGroupPromise(groupId)
+          .then(function (group) {
+            $scope.groups[group.id] = group;
+          });
+      }
+    };
+
+    $scope.goToUserAdd = function () {
+      $location.path('/user_add');
     };
   });

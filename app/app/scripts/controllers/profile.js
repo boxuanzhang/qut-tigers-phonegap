@@ -8,7 +8,7 @@
  * Controller of the qutTigersApp
  */
 angular.module('qutTigersApp')
-  .controller('ProfileCtrl', function ($scope, $routeParams, AuthService, UserService) {
+  .controller('ProfileCtrl', function ($scope, $routeParams, $window, AuthService, UserService) {
     $scope.userId = $routeParams.userId || AuthService.currentUser().id;
 
     UserService.getUserPromise($scope.userId)
@@ -23,4 +23,15 @@ angular.module('qutTigersApp')
     $scope.logout = function () {
       AuthService.logout();
     };
+
+    $scope.canDelete = function () {
+      return AuthService.hasPermission('user:delete') && $scope.userId != AuthService.currentUser().id;
+    };
+
+    $scope.deleteUser = function () {
+      UserService.deleteUserPromise($scope.userId)
+        .then(function () {
+          $window.history.back();
+        });
+    }
   });

@@ -1,0 +1,26 @@
+<div class="user-add-view">
+  <form ng-submit="submit()">
+    <div class="form-group">
+      <label for="inputUsername">Username</label>
+      <input type="text" class="form-control" id="inputUsername" placeholder="Username" required="" ng-model="username">
+    </div>
+    <div class="form-group">
+      <label for="inputName">Name</label>
+      <input type="text" class="form-control" id="inputName" placeholder="Name" required="" ng-model="name">
+    </div>
+    <div class="form-group">
+      <label for="inputDescription">Description</label>
+      <textarea class="form-control" id="inputDescription" rows="3" placeholder="Description" required="" ng-model="description" msd-elastic></textarea>
+    </div>
+    <div class="form-group">
+      <label for="inputPassword">Password</label>
+      <input type="password" class="form-control" id="inputPassword" placeholder="Password" required="" ng-model="password">
+    </div>
+    <div class="checkbox">
+      <label class="checkbox-inline" ng-repeat="group in allGroups">
+        <input type="checkbox" checklist-model="groups" checklist-value="group.id"> {{ group.name }}
+      </label>
+    </div>
+    <button type="submit" class="btn btn-lg btn-default btn-block">Create User</button>
+  </form>
+</div>

@@ -19,7 +19,8 @@ angular
     'ngTouch',
     'infinite-scroll',
     'monospaced.elastic',
-    'ngFileUpload'
+    'ngFileUpload',
+    'checklist-model'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -54,6 +55,10 @@ angular
       .when('/users', {
         templateUrl: 'views/users.html',
         controller: 'UsersCtrl'
+      })
+      .when('/user_add', {
+        templateUrl: 'views/user_add.html',
+        controller: 'UserAddCtrl'
       })
       .otherwise({
         redirectTo: '/'
